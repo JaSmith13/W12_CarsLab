@@ -28,7 +28,7 @@ public class CustomerTest {
         tyres.add(tyre);
         tyres.add(tyre);
         tyres.add(tyre);
-        car = new Car(engine, tyres, 5000, "Dodger Blue", "Toyota", "500");
+        car = new Car(engine, tyres, 1000, "Dodger Blue", "Toyota", "500");
         customerCars = new ArrayList<>();
         customerCars.add(car);
         customer = new Customer(6000, customerCars);
@@ -42,5 +42,20 @@ public class CustomerTest {
     @Test
     public void hasOwnCar(){
         assertEquals(1, customer.getOwnCars().size());
+    }
+
+    @Test
+    public void canBuyCar(){
+        customer.buyCar(car);
+        assertEquals(2, customer.getOwnCars().size());
+        assertEquals(5000, customer.getMoney(), 0.01);
+    }
+
+    @Test
+    public void cannotBuyCarIfNoFunds(){
+        Customer poorCustomer = new Customer(50, customerCars);
+        poorCustomer.buyCar(car);
+        assertEquals(1, poorCustomer.getOwnCars().size());
+        assertEquals(50, poorCustomer.getMoney(), 0.01);
     }
 }

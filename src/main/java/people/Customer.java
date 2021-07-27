@@ -1,10 +1,11 @@
 package people;
 
+import behaviours.Buy;
 import cars.Car;
 
 import java.util.ArrayList;
 
-public class Customer {
+public class Customer implements Buy {
 
     private double money;
     private ArrayList<Car> ownCars;
@@ -20,5 +21,12 @@ public class Customer {
 
     public ArrayList<Car> getOwnCars() {
         return ownCars;
+    }
+
+    public void buyCar(Car car) {
+        if(getMoney() >= car.getPrice()) {
+            this.ownCars.add(car);
+            this.money -= car.getPrice();
+        }
     }
 }

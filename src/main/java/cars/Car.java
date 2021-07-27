@@ -1,5 +1,6 @@
 package cars;
 
+import parts.Damage;
 import parts.Engine;
 import parts.Tyre;
 
@@ -13,6 +14,8 @@ public class Car {
     private String colour;
     private String make;
     private String model;
+    private ArrayList<Damage> damages;
+
 
     public Car(Engine engine, ArrayList<Tyre> tyres, double price, String colour, String make, String model) {
         this.engine = engine;
@@ -21,6 +24,7 @@ public class Car {
         this.colour = colour;
         this.make = make;
         this.model = model;
+        this.damages = new ArrayList<>();
     }
 
     public Engine getEngine() {
@@ -32,7 +36,7 @@ public class Car {
     }
 
     public double getPrice() {
-        return price;
+        return price - this.calculateTotalDamage();
     }
 
     public String getColour() {
@@ -45,5 +49,26 @@ public class Car {
 
     public String getModel() {
         return model;
+    }
+
+    public ArrayList<Damage> getDamages() {
+        return damages;
+    }
+
+    public void addDamage(Damage damage) {
+        this.damages.add(damage);
+//        this.price -= damageCost;
+    }
+
+    public void removeDamage(ArrayList<Damage> damages){
+        this.damages.removeAll(damages);
+    }
+
+    public double calculateTotalDamage(){
+        double totalDamage = 0;
+        for(Damage damage: this.damages){
+            totalDamage += damage.getCostToRepair();
+        }
+        return totalDamage;
     }
 }

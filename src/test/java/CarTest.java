@@ -1,6 +1,7 @@
 import cars.Car;
 import org.junit.Before;
 import org.junit.Test;
+import parts.Damage;
 import parts.EngineType;
 import parts.Tyre;
 import parts.Engine;
@@ -42,5 +43,15 @@ public class CarTest {
     @Test
     public void has4Tyres(){
         assertEquals(4, car.getTyres().size());
+    }
+
+    @Test
+    public void canAddDamage(){
+        Damage damage = new Damage("Missing Half the car",2000);
+        Damage brokenHeadLight = new Damage("Broken Headlight", 1000);
+        car.addDamage(damage);
+        car.addDamage(brokenHeadLight);
+        assertEquals(2000,car.getPrice(), 0.01);
+
     }
 }
